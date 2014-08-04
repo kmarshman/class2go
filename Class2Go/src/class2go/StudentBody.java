@@ -7,7 +7,7 @@ public class StudentBody implements Serializable{
 	
 	private static final long serialVersionUID = 3L;
 	private ArrayList<Student> students = new ArrayList<Student>();
-	
+
 	public StudentBody(){
 		
 	}
@@ -29,6 +29,14 @@ public class StudentBody implements Serializable{
 		for (Student s: students)
 			if (s.getFirstName().equals(first) && s.getLastName().equals(last)) return s;
 		return null;
+	}
+	
+	public ArrayList<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(ArrayList<Student> students) {
+		this.students = students;
 	}
 
 }

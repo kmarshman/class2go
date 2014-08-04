@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class Answer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	public enum Type{
+	public enum AnswerType{
 		MULTIPLE_CHOICE,
 		SHORT_ANSWER
 	}
 	
-	private Type type;
+	private AnswerType type;
 	private ArrayList<String> options = new ArrayList<String>();
 	private String solution;
 	
@@ -20,16 +20,16 @@ public class Answer implements Serializable{
 		solution = "";
 	}
 	
-	public Answer(Type type, ArrayList<String> options, String solution){
+	public Answer(AnswerType type, ArrayList<String> options, String solution){
 		this.type = type;
 		this.options = options;
 		this.solution = solution;
 	}
 	
-	public Type getType() {
+	public AnswerType getType() {
 		return type;
 	}
-	public void setType(Type type) {
+	public void setType(AnswerType type) {
 		this.type = type;
 	}
 	public ArrayList<String> getOptions() {

@@ -23,6 +23,19 @@ public class Instructor implements Serializable{
 		id = -1;
 	}
 	
+	public void addCourse(Course course){
+		courses.add(course);
+	}
+	
+	public void removeCourse(Course course){
+		courses.remove(course);
+	}
+	
+	public void removeCourse(String title){
+		for (Course c: courses)
+			if (c.getTitle().equals(title)) courses.remove(c);
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
