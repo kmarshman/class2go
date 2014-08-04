@@ -1,9 +1,11 @@
 package class2go;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Unit {
+public class Unit implements Serializable{
 	
+	private static final long serialVersionUID = 21L;
 	private String title;
 	private ArrayList<Topic> topics = new ArrayList<Topic>();
 	

@@ -1,9 +1,11 @@
 package class2go;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Answer {
+public class Answer implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	public enum Type{
 		MULTIPLE_CHOICE,
 		SHORT_ANSWER

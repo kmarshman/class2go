@@ -1,9 +1,12 @@
 package class2go;
 
+import java.io.Serializable;
+
 import scheduling.Schedule;
 
-public class Course {
+public class Course implements Serializable{
 	
+	private static final long serialVersionUID = 4L;
 	private String title;
 	private Curriculum curriculum;
 	private Schedule schedule;
