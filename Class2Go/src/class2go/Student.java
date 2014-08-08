@@ -3,6 +3,7 @@ package class2go;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+//Test Comment
 public class Student implements Serializable{
 	
 	private static final long serialVersionUID = 5L;
