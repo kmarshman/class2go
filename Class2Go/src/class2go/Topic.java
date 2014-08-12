@@ -7,14 +7,17 @@ public class Topic implements Serializable{
 	
 	private static final long serialVersionUID = 15L;
 	private String title;
+	private int displayOrder;
 	private ArrayList<Question> questions = new ArrayList<Question>();
 	
 	public Topic(){
 		title = "";
+		displayOrder = -1;
 	}
 	
-	public Topic(String title){
+	public Topic(String title, int displayOrder){
 		this.title = title;
+		this.displayOrder = displayOrder;
 	}
 	
 	public void addQuestion(Question question){
@@ -36,5 +39,13 @@ public class Topic implements Serializable{
 	}
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
+	}
+
+	public int getDisplayOrder() {
+		return displayOrder;
+	}
+
+	public void setDisplayOrder(int displayOrder) {
+		this.displayOrder = displayOrder;
 	}
 }

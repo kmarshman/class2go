@@ -1,4 +1,4 @@
-package logging;
+package server_communication;
 
 public class ResultsLogger {
 
