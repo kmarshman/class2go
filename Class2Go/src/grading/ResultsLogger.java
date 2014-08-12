@@ -1,4 +1,4 @@
-package server_communication;
+package grading;
 
 public class ResultsLogger {
 
