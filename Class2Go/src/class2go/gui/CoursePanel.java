@@ -1,13 +1,14 @@
 package class2go.gui;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel;
 
 import class2go.Course;
 
-public class CoursePanel extends JScrollPane {
+public class CoursePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Course course;
@@ -17,9 +18,12 @@ public class CoursePanel extends JScrollPane {
 	 */
 	public CoursePanel(Course course) {
 		this.setCourse(course);
-		this.setBackground(Color.BLUE);
-		JLabel title = new JLabel("Test Panel");
-		this.add(title);
+		
+		this.setLayout(new BorderLayout());
+		
+		JLabel title = new JLabel(course.getTitle());
+		title.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.add(title, BorderLayout.NORTH);
 	}
 
 	public Course getCourse() {

@@ -1,15 +1,14 @@
 package class2go;
 
-import java.io.Serializable;
-
+import class2go.curriculum.Curriculum;
 import scheduling.Schedule;
 
-public class Course implements Serializable{
+public class Course {
 	
-	private static final long serialVersionUID = 4L;
 	private String title;
 	private Curriculum curriculum;
 	private Schedule schedule;
+	private StudentRoster roster;
 	
 	public Course(){
 		title = "";
@@ -21,6 +20,18 @@ public class Course implements Serializable{
 		this.title = title;
 		this.curriculum = curriculum;
 		schedule = null;
+	}
+	
+	public void addStudent(User student){
+		roster.addStudent(student);
+	}
+	
+	public void removeStudent(User student){
+		roster.removeStudent(student);
+	}
+	
+	public void removeStudent(String first, String last){
+		roster.removeStudent(first, last);
 	}
 	
 	public String getTitle() {
@@ -45,6 +56,14 @@ public class Course implements Serializable{
 
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
+	}
+
+	public StudentRoster getRoster() {
+		return roster;
+	}
+
+	public void setRoster(StudentRoster roster) {
+		this.roster = roster;
 	}
 
 }

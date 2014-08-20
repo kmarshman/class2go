@@ -6,8 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import class2go.Instructor;
-import class2go.Student;
+import class2go.User;
 
 import java.awt.CardLayout;
 
@@ -55,11 +54,11 @@ public class Class2Go extends JFrame {
 		contentPane.add(instructorHome, "Instructor Homepage");
 	}
 	
-	public void setStudent(Student student){
+	public void setStudent(User student){
 		studentHome.setStudent(student);
 	}
 	
-	public void setInstructor(Instructor instructor){
+	public void setInstructor(User instructor){
 		instructorHome.setInstructor(instructor);
 	}
 

@@ -4,18 +4,17 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import class2go.Course;
-import class2go.Student;
+import class2go.User;
 
 public class StudentHomepage extends JPanel {
 
 	private static final long serialVersionUID = 5383757619897977563L;
-	private Student student;
+	private User student;
 	private JTabbedPane courseTabs;
-	private ArrayList<JScrollPane> courses;
+	private ArrayList<CoursePanel> courses;
 
 	/**
 	 * Create the panel.
@@ -27,13 +26,13 @@ public class StudentHomepage extends JPanel {
 		add(courseTabs);
 	}
 
-	public Student getStudent() {
+	public User getStudent() {
 		return student;
 	}
 
-	public void setStudent(Student student) {
+	public void setStudent(User student) {
 		this.student = student;
-		courses = new ArrayList<JScrollPane>();
+		courses = new ArrayList<CoursePanel>();
 		int index = 0;
 		for (Course c: student.getCourses()){
 			courses.add(new CoursePanel(c));

@@ -3,12 +3,12 @@ package class2go.gui;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import class2go.Instructor;
+import class2go.User;
 
 public class InstructorHomepage extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private Instructor instructor;
+	private User instructor;
 	
 	/**
 	 * Create the panel.
@@ -20,11 +20,11 @@ public class InstructorHomepage extends JPanel {
 
 	}
 
-	public Instructor getInstructor() {
+	public User getInstructor() {
 		return instructor;
 	}
 
-	public void setInstructor(Instructor instructor) {
+	public void setInstructor(User instructor) {
 		this.instructor = instructor;
 	}
 

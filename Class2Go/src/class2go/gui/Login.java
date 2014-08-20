@@ -22,6 +22,7 @@ import javax.swing.border.LineBorder;
 
 import class2go.Instructor;
 import class2go.Student;
+import class2go.User;
 import server_communication.RequestBuilder;
 import server_communication.HttpConnectionHandler;
 
@@ -142,14 +143,14 @@ public class Login extends JPanel {
 			String post = RequestBuilder.buildPost(variables, values);
 			try {
 				HttpConnectionHandler postSender = new HttpConnectionHandler();
-				Object result = postSender.sendPost(post);
+				User result = (User) postSender.sendPost(post);
 				CardLayout layout = (CardLayout) app.getContentPane().getLayout();
-				if (result instanceof Student){
-					app.setStudent((Student) result);
+				if (result.getRole() instanceof Student){
+					app.setStudent(result);
 					layout.next(app.getContentPane());
-				} else if (result instanceof Instructor){
+				} else if (result.getRole() instanceof Instructor){
 					System.out.println("Instructor");
-					app.setInstructor((Instructor) result);
+					app.setInstructor(result);
 					layout.next(app.getContentPane());
 					layout.next(app.getContentPane());
 				} else {
