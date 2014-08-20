@@ -1,6 +1,6 @@
 package class2go.gui;
 
-import java.awt.Graphics;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -21,20 +21,10 @@ public class StudentHomepage extends JPanel {
 	 * Create the panel.
 	 */
 	public StudentHomepage() {
-		
-		courseTabs = new JTabbedPane(JTabbedPane.TOP);
+		courseTabs = new JTabbedPane();
+		courseTabs.setPreferredSize(new Dimension(975, 700));
+		courseTabs.setMinimumSize(new Dimension(900, 600));
 		add(courseTabs);
-	}
-	
-	@Override
-	public void paintComponent(Graphics g) {
-		courses = new ArrayList<JScrollPane>();
-		int index = 0;
-		for (Course c: student.getCourses()){
-			courses.add(new CoursePanel(c));
-			courseTabs.add(c.getTitle(), courses.get(index));
-			index++;
-		}
 	}
 
 	public Student getStudent() {
@@ -43,7 +33,13 @@ public class StudentHomepage extends JPanel {
 
 	public void setStudent(Student student) {
 		this.student = student;
-		paintComponent(this.getGraphics());
+		courses = new ArrayList<JScrollPane>();
+		int index = 0;
+		for (Course c: student.getCourses()){
+			courses.add(new CoursePanel(c));
+			courseTabs.add(c.getTitle(), courses.get(index));
+			index++;
+		}
 	}
 
 }

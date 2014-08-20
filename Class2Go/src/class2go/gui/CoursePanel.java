@@ -1,12 +1,11 @@
 package class2go.gui;
 
+import java.awt.Color;
+
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import class2go.Course;
-
-import javax.swing.JTree;
-
-import java.awt.BorderLayout;
 
 public class CoursePanel extends JScrollPane {
 
@@ -18,6 +17,9 @@ public class CoursePanel extends JScrollPane {
 	 */
 	public CoursePanel(Course course) {
 		this.setCourse(course);
+		this.setBackground(Color.BLUE);
+		JLabel title = new JLabel("Test Panel");
+		this.add(title);
 	}
 
 	public Course getCourse() {
@@ -26,10 +28,6 @@ public class CoursePanel extends JScrollPane {
 
 	public void setCourse(Course course) {
 		this.course = course;
-		setLayout(new BorderLayout(0, 0));
-		
-		JTree scheduleTree = new JTree();
-		add(scheduleTree, BorderLayout.CENTER);
 	}
 
 }

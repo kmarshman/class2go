@@ -5,10 +5,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -18,21 +20,29 @@ import java.awt.Font;
 
 import javax.swing.border.LineBorder;
 
+import class2go.Instructor;
+import class2go.Student;
+import server_communication.RequestBuilder;
+import server_communication.HttpConnectionHandler;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Login extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private Class2Go app;
 	private JTextField usernameField;
-	private JTextField passwordField;
+	private JPasswordField passwordField;
 
 	/**
 	 * Create the panel.
 	 */
-	public Login() {
+	public Login(Class2Go app) {
+		this.app = app;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		Component outsideTopGlue = Box.createGlue();
@@ -89,7 +99,7 @@ public class Login extends JPanel {
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 		password.add(lblNewLabel);
 		
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Arial", Font.PLAIN, 12));
 		password.add(passwordField);
 		passwordField.setColumns(10);
@@ -107,13 +117,7 @@ public class Login extends JPanel {
 		
 		login.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				if (!usernameField.getText().equals("") && !passwordField.getText().equals("")){
-					String usernameEntered = usernameField.getText();
-					String passwordEntered = passwordField.getText();
-				}else{
-					JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(Login.this), "Username and Password must be completed", "Login error", JOptionPane.ERROR_MESSAGE);
-				}
-				
+				login();		
 			}
 		});
 		
@@ -129,6 +133,35 @@ public class Login extends JPanel {
 		Component outsideBottomGlue = Box.createGlue();
 		add(outsideBottomGlue);
 		
+	}
+	
+	private void login(){
+		if (!usernameField.getText().equals("") && !passwordField.getPassword().equals("")){
+			String[] variables = {"requestType", "username", "password"};
+			String[] values = {"login", usernameField.getText(), String.valueOf(passwordField.getPassword())};
+			String post = RequestBuilder.buildPost(variables, values);
+			try {
+				HttpConnectionHandler postSender = new HttpConnectionHandler();
+				Object result = postSender.sendPost(post);
+				CardLayout layout = (CardLayout) app.getContentPane().getLayout();
+				if (result instanceof Student){
+					app.setStudent((Student) result);
+					layout.next(app.getContentPane());
+				} else if (result instanceof Instructor){
+					System.out.println("Instructor");
+					app.setInstructor((Instructor) result);
+					layout.next(app.getContentPane());
+					layout.next(app.getContentPane());
+				} else {
+					JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(Login.this), "Username and Password combination inccorect", "Login error", JOptionPane.ERROR_MESSAGE);
+				}
+				if (result != null) System.out.println(result.toString());			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(Login.this), "Username and Password must be completed", "Login error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

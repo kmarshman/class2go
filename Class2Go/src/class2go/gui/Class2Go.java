@@ -5,12 +5,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import class2go.Instructor;
+import class2go.Student;
+
 import java.awt.CardLayout;
 
 public class Class2Go extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private StudentHomepage studentHome;
+	private InstructorHomepage instructorHome;
 
 	/**
 	 * Launch the application.
@@ -41,12 +47,20 @@ public class Class2Go extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
 		
-		JPanel loginCard = new Login();
+		Login loginCard = new Login(this);
 		contentPane.add(loginCard, "Welcome");
-		JPanel studentHome = new StudentHomepage();
+		studentHome = new StudentHomepage();
 		contentPane.add(studentHome, "Student Homepage");
-		JPanel instructorHome = new InstructorHomepage();
+		instructorHome = new InstructorHomepage();
 		contentPane.add(instructorHome, "Instructor Homepage");
+	}
+	
+	public void setStudent(Student student){
+		studentHome.setStudent(student);
+	}
+	
+	public void setInstructor(Instructor instructor){
+		instructorHome.setInstructor(instructor);
 	}
 
 }
