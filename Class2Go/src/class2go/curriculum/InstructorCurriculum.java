@@ -2,6 +2,10 @@ package class2go.curriculum;
 
 public class InstructorCurriculum extends Curriculum {
 	
+	public InstructorCurriculum(String title){
+		setTitle(title);
+	}
+	
 	public void addUnit(Unit unit){
 		getUnits().add(unit);
 	}

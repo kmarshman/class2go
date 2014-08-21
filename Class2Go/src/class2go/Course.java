@@ -1,7 +1,7 @@
 package class2go;
 
 import class2go.curriculum.Curriculum;
-import scheduling.Schedule;
+import assignment.Schedule;
 
 public class Course {
 	

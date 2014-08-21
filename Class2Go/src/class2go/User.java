@@ -12,6 +12,13 @@ public class User {
 	private ArrayList<Course> courses = new ArrayList<Course>();
 	private UserRole role;
 	
+	public User(){
+		super();
+		firstName = "";
+		lastName = "";
+		role = null;
+	}
+	
 	public User(String firstName, String lastName, UserRole role) {
 		super();
 		this.firstName = firstName;

@@ -20,8 +20,6 @@ import java.awt.Font;
 
 import javax.swing.border.LineBorder;
 
-import class2go.Instructor;
-import class2go.Student;
 import class2go.User;
 import server_communication.RequestBuilder;
 import server_communication.HttpConnectionHandler;
@@ -143,20 +141,19 @@ public class Login extends JPanel {
 			String post = RequestBuilder.buildPost(variables, values);
 			try {
 				HttpConnectionHandler postSender = new HttpConnectionHandler();
-				User result = (User) postSender.sendPost(post);
+				User result = (User) postSender.sendPost(post, "Login");
 				CardLayout layout = (CardLayout) app.getContentPane().getLayout();
-				if (result.getRole() instanceof Student){
+				if (result.getRole().getRoleTitle().equals("Student")){
 					app.setStudent(result);
 					layout.next(app.getContentPane());
-				} else if (result.getRole() instanceof Instructor){
+				} else if (result.getRole().getRoleTitle().equals("Instructor")){
 					System.out.println("Instructor");
 					app.setInstructor(result);
 					layout.next(app.getContentPane());
 					layout.next(app.getContentPane());
 				} else {
 					JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(Login.this), "Username and Password combination inccorect", "Login error", JOptionPane.ERROR_MESSAGE);
-				}
-				if (result != null) System.out.println(result.toString());			
+				}		
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

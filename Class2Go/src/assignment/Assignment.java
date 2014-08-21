@@ -4,11 +4,16 @@ import java.util.ArrayList;
 
 import class2go.curriculum.Question;
 
-public abstract class Assignment {
+public class Assignment {
 	
 	private int id;
 	private ArrayList<Question> questions;
 	
+	public Assignment(){
+		super();
+		id = -1;
+		questions = null;
+	}
 	
 	public Assignment(int id, ArrayList<Question> questions) {
 		super();

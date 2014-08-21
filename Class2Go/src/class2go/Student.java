@@ -2,10 +2,10 @@ package class2go;
 
 import grading.Report;
 
-public class Student implements UserRole{
+public class Student extends UserRole{
 	
 	public Student(){
-		
+		setRoleTitle("Student");
 	}
 
 	@Override
@@ -13,7 +13,4 @@ public class Student implements UserRole{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-
-
 }

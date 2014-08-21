@@ -25,7 +25,7 @@ public class HttpConnectionHandler {
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 	}
 	
-	public Object sendPost(String urlParameters) throws IOException{
+	public Object sendPost(String urlParameters, String type) throws IOException{
 		// Send post request
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -34,17 +34,27 @@ public class HttpConnectionHandler {
 		wr.close();
  
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
+		System.out.println("Sending 'POST' request to URL : " + url);
 		System.out.println("Post parameters : " + urlParameters);
 		System.out.println("Response Code : " + responseCode);
 		
-		User student = null;
+		// Collect Result
+		switch(type){
+		case "Login":
+			return collectLoginResult();
+		default:
+			System.out.println("invalid request type");
+			return null;
+		}
+	}
+
+	private User collectLoginResult() throws IOException{
+		User user = null;
 		if (con.getInputStream().available() > 0){
-			System.out.println("info sent");
 			ObjectMapper mapper = new ObjectMapper();
 			try
 			{
-				student =  mapper.readValue(con.getInputStream(), User.class);
+				user =  mapper.readValue(con.getInputStream(), User.class);
 			} catch (JsonGenerationException e)
 			{
 				e.printStackTrace();
@@ -55,11 +65,9 @@ public class HttpConnectionHandler {
 			{
 				e.printStackTrace();
 			}
-			System.out.println(student.getFirstName() + " " + student.getLastName());
 		} else {
 			System.out.println("invalid login");
 		}
-		return student;
+		return user;
 	}
-
 }

@@ -2,7 +2,11 @@ package class2go;
 
 import grading.Report;
 
-public class Instructor implements UserRole{
+public class Instructor extends UserRole{
+	
+	public Instructor(){
+		setRoleTitle("Instructor");
+	}
 
 	@Override
 	public Report getGrades(User user, int courseID) {
