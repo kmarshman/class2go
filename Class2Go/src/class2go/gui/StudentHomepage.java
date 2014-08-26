@@ -1,6 +1,7 @@
 package class2go.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -21,7 +22,8 @@ public class StudentHomepage extends JPanel {
 	 */
 	public StudentHomepage() {
 		courseTabs = new JTabbedPane();
-		courseTabs.setPreferredSize(new Dimension(975, 700));
+		courseTabs.setFont(new Font("Arial", Font.BOLD, 14));
+		courseTabs.setPreferredSize(new Dimension(975, 640));
 		courseTabs.setMinimumSize(new Dimension(900, 600));
 		add(courseTabs);
 	}
