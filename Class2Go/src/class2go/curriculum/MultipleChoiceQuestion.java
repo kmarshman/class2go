@@ -7,6 +7,7 @@ public class MultipleChoiceQuestion extends Question {
 		setInstructions("");
 		setAnswer("");
 		setWeight(0);
+		setType("Multiple Choice");
 	}
 	
 	public MultipleChoiceQuestion(String prompt, String instructions, String answer, double weight){
@@ -15,6 +16,7 @@ public class MultipleChoiceQuestion extends Question {
 		setAnswer(answer);
 		setWeight(weight);
 		getOptions().add(answer);
+		setType("Multiple Choice");
 	}
 	
 	public void addOption(String option){

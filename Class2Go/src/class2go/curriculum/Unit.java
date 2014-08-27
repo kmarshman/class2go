@@ -6,7 +6,7 @@ public class Unit {
 
 	private String title;
 	private int displayOrder;
-	private ArrayList<Topic> topics = new ArrayList<Topic>();
+	private ArrayList<Assignment> assignments = new ArrayList<Assignment>();
 	
 	public Unit(){
 		title = "";
@@ -18,17 +18,17 @@ public class Unit {
 		this.displayOrder = displayOrder;
 	}
 	
-	public void addTopic(Topic topic){
-		topics.add(topic);
+	public void addAssignment(Assignment assignment){
+		assignments.add(assignment);
 	}
 	
-	public void removeTopic(Topic topic){
-		topics.remove(topic);
+	public void removeTopic(Assignment assignment){
+		assignments.remove(assignment);
 	}
 	
 	public void removeTopic(String title){
-		for (Topic t: topics)
-			if (t.getTitle().equals(title)) topics.remove(t);
+		for (Assignment a: assignments)
+			if (a.getTitle().equals(title)) assignments.remove(a);
 	}
 	
 	public String getTitle() {
@@ -39,12 +39,12 @@ public class Unit {
 		this.title = title;
 	}
 
-	public ArrayList<Topic> getTopics() {
-		return topics;
+	public ArrayList<Assignment> getAssignments() {
+		return assignments;
 	}
 
-	public void setTopics(ArrayList<Topic> topics) {
-		this.topics = topics;
+	public void setTopics(ArrayList<Assignment> assignments) {
+		this.assignments = assignments;
 	}
 
 	public int getDisplayOrder() {

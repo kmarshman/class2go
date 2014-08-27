@@ -1,28 +1,28 @@
 package class2go;
 
 import class2go.curriculum.Curriculum;
-import assignment.Schedule;
 
 public class Course {
 	
+	private int id;
 	private String title;
 	private Curriculum curriculum;
-	private Schedule schedule;
 	private StudentRoster roster;
 	
 	public Course(){
 		title = "";
 		curriculum = null;
-		schedule = null;
+		roster = new StudentRoster();
 	}
 	
 	public Course(String title, Curriculum curriculum){
 		this.title = title;
 		this.curriculum = curriculum;
-		schedule = null;
+		roster = new StudentRoster();
 	}
 	
 	public void addStudent(User student){
+		if(roster == null) roster = new StudentRoster();
 		roster.addStudent(student);
 	}
 	
@@ -50,20 +50,20 @@ public class Course {
 		this.curriculum = curriculum;
 	}
 
-	public Schedule getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
-	}
-
 	public StudentRoster getRoster() {
 		return roster;
 	}
 
 	public void setRoster(StudentRoster roster) {
 		this.roster = roster;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

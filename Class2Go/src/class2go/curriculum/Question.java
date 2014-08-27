@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 public class Question {
 	
+	private int id;
 	private String prompt;
 	private String instructions;
 	private String answer;
 	private ArrayList<String> options = new ArrayList<String>();
 	private double weight;
+	private String type;
 	
 	public Question(){
+		type = "";
 		prompt = "";
 		instructions = "";
 		answer = "";
@@ -47,6 +50,22 @@ public class Question {
 	}
 	public double getWeight(){
 		return weight;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

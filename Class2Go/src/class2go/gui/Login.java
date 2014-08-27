@@ -113,12 +113,13 @@ public class Login extends JPanel {
 		submit.add(login);
 		login.setFont(new Font("Arial", Font.PLAIN, 12));
 		login.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
 		login.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				login();		
 			}
 		});
+		
+		app.getRootPane().setDefaultButton(login);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(50);
 		submit.add(horizontalStrut_1);

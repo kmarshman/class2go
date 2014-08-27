@@ -1,6 +1,5 @@
 package class2go.gui;
 
-import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,20 +14,20 @@ import javax.swing.JPanel;
 
 import class2go.curriculum.Assignment;
 
-public class AssignmentPanel extends JPanel {
+public class InstructorAssignmentPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Assignment assignment;
 	private JLabel dueDate;
 	private JButton complete;
 	
-	public AssignmentPanel(Assignment assignment){
+	public InstructorAssignmentPanel(Assignment assignment){
 		this.setAssignment(assignment);
 		this.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.setLayout(new FlowLayout(FlowLayout.LEADING));
-		this.setMaximumSize(new Dimension(1000, 40));
-		this.setPreferredSize(new Dimension(1000, 40));
-		this.setMinimumSize(new Dimension(1000, 40));
+		this.setMaximumSize(new Dimension(900, 40));
+		this.setPreferredSize(new Dimension(900, 40));
+		this.setMinimumSize(new Dimension(900, 40));
 		
 		SimpleDateFormat date_format = new SimpleDateFormat("EEE, MMM d");
 		dueDate = new JLabel(date_format.format((assignment.getDueDate().getTime())));
@@ -39,11 +38,11 @@ public class AssignmentPanel extends JPanel {
 		add(dueDate);
 		
 		
-		JLabel score = new JLabel("- / " + assignment.calculateTotalPoints());
+		JLabel score = new JLabel(String.valueOf(assignment.calculateTotalPoints()));
 		score.setFont(new Font("Arial", Font.PLAIN, 15));
-		score.setMaximumSize(new Dimension(100, 40));
-		score.setPreferredSize(new Dimension(100, 40));
-		score.setMinimumSize(new Dimension(100, 40));
+		score.setMaximumSize(new Dimension(60, 40));
+		score.setPreferredSize(new Dimension(60, 40));
+		score.setMinimumSize(new Dimension(60, 40));
 		add(score);
 		
 		
@@ -54,25 +53,22 @@ public class AssignmentPanel extends JPanel {
 		title.setMinimumSize(new Dimension(500, 40));
 		add(title);
 		
-		complete = new JButton("Complete");
+		complete = new JButton("remove");
 		complete.setFont(new Font("Arial", Font.PLAIN, 13));
-		complete.setMaximumSize(new Dimension(100, 30));
-		complete.setPreferredSize(new Dimension(100, 30));
-		complete.setMinimumSize(new Dimension(100, 30));
+		complete.setMaximumSize(new Dimension(80, 30));
+		complete.setPreferredSize(new Dimension(80, 30));
+		complete.setMinimumSize(new Dimension(80, 30));
 		complete.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				takeAssignment();
+				removeAssignment();
 			}
 		});
 		add(complete);
 	}
 	
-	private void takeAssignment(){
-		CoursePanel coursePanel = (CoursePanel) this.getParent().getParent();
-		coursePanel.setAssignmentGUI(assignment);
-		CardLayout cards = (CardLayout) coursePanel.getLayout();
-		cards.next(coursePanel);
+	private void removeAssignment(){
+
 	}
 
 	public Assignment getAssignment() {

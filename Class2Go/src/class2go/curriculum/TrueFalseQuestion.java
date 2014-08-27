@@ -7,6 +7,7 @@ public class TrueFalseQuestion extends Question {
 		setInstructions("");
 		setAnswer("");
 		setWeight(0);
+		setType("True False");
 	}
 
 	public TrueFalseQuestion(String prompt, String instructions, String answer, double weight){
@@ -14,6 +15,7 @@ public class TrueFalseQuestion extends Question {
 		setInstructions(instructions);
 		setAnswer(answer);
 		setWeight(weight);
+		setType("True False");
 	}
 	
 }

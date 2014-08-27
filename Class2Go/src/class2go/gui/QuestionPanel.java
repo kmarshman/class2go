@@ -1,5 +1,7 @@
 package class2go.gui;
 
+import grading.Report;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -8,6 +10,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -19,22 +22,26 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import class2go.curriculum.MultipleChoiceQuestion;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import server_communication.HttpConnectionHandler;
+import server_communication.RequestBuilder;
 import class2go.curriculum.Question;
-import class2go.curriculum.ShortAnswerQuestion;
-import class2go.curriculum.TrueFalseQuestion;
 
 public class QuestionPanel extends JPanel {
 
 	private static final long serialVersionUID = -7258390655415574243L;
 	
 	private Question question;
+	private Report report;
 	private JTextField shortAnswer;
 	private ButtonGroup selectionGroup;
 	private boolean lastCard;
 	private JButton submit;
 	
-	public QuestionPanel(Question question, boolean lastCard){
+	public QuestionPanel(Question question, boolean lastCard, Report report){
+		
+		this.report = report;
 		this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(975, 600));
 		setMinimumSize(new Dimension(900, 580));
@@ -62,23 +69,25 @@ public class QuestionPanel extends JPanel {
 		
 		JPanel inputPanel = new JPanel();
 		inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
-		if(question instanceof ShortAnswerQuestion){
+		if(question.getType().equals("Short Answer")){
 			shortAnswer = new JTextField();
 			shortAnswer.setFont(new Font("Arial", Font.PLAIN, 15));
 			shortAnswer.setMaximumSize(new Dimension(300, 100));
 			shortAnswer.setPreferredSize(new Dimension(300, 100));
 			shortAnswer.setMinimumSize(new Dimension(300, 100));
 			inputPanel.add(shortAnswer);
-		} else if (question instanceof TrueFalseQuestion){
+		} else if (question.getType().equals("True False")){
 			JPanel optionsPanel = new JPanel();
 			optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
 			optionsPanel.setMaximumSize(new Dimension(150, 100));
 			optionsPanel.setPreferredSize(new Dimension(150, 100));
 			optionsPanel.setMinimumSize(new Dimension(150, 100));
 			JRadioButton trueButton = new JRadioButton("True");
+			trueButton.setActionCommand("True");
 			trueButton.setFont(new Font("Arial", Font.PLAIN, 15));
 			trueButton.setHorizontalAlignment(SwingConstants.LEFT);
 			JRadioButton falseButton = new JRadioButton("False");
+			falseButton.setActionCommand("False");
 			falseButton.setFont(new Font("Arial", Font.PLAIN, 15));
 			falseButton.setHorizontalAlignment(SwingConstants.LEFT);
 			optionsPanel.add(trueButton);
@@ -87,7 +96,7 @@ public class QuestionPanel extends JPanel {
 			selectionGroup.add(trueButton);
 			selectionGroup.add(falseButton);
 			inputPanel.add(optionsPanel);
-		} else if (question instanceof MultipleChoiceQuestion){
+		} else if (question.getType().equals("Multiple Choice")){
 			JPanel optionsPanel = new JPanel();
 			optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
 			optionsPanel.setMaximumSize(new Dimension(200, 150));
@@ -96,6 +105,7 @@ public class QuestionPanel extends JPanel {
 			ArrayList<JRadioButton> optionButtons = new ArrayList<JRadioButton>();
 			for (String choice: question.getOptions()){
 				JRadioButton b = new JRadioButton(choice);
+				b.setActionCommand(choice);
 				b.setFont(new Font("Arial", Font.PLAIN, 15));
 				b.setAlignmentX(Component.LEFT_ALIGNMENT);
 				b.setHorizontalAlignment(SwingConstants.LEFT);
@@ -134,10 +144,14 @@ public class QuestionPanel extends JPanel {
 	}
 	
 	private void gradeQuestion(){
+		if (shortAnswer != null) report.addAnswer(shortAnswer.getText());
+		else if (selectionGroup != null) report.addAnswer(selectionGroup.getSelection().getActionCommand());
+		else report.addAnswer("none entered");
 		if(!lastCard){
 			CardLayout cards = (CardLayout) this.getParent().getLayout();
 			cards.next(this.getParent());
 		} else {
+			sendReport();
 			CoursePanel coursePanel = (CoursePanel) this.getParent().getParent().getParent();
 			CardLayout cards = (CardLayout) coursePanel.getLayout();
 			cards.next(coursePanel);
@@ -150,6 +164,21 @@ public class QuestionPanel extends JPanel {
 
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+	
+	private void sendReport(){
+		String[] variables = {"requestType", "report"};
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String json =  mapper.writeValueAsString(report);
+			System.out.println(json);
+			String[] values = {"report", json};
+			String post = RequestBuilder.buildPost(variables, values);
+			HttpConnectionHandler postSender = new HttpConnectionHandler();
+			postSender.sendPost(post, "Report");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

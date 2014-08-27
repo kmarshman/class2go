@@ -7,8 +7,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import assignment.Assignment;
 import class2go.Course;
+import class2go.curriculum.Assignment;
+import class2go.curriculum.Unit;
 
 public class CoursePanel extends JPanel {
 
@@ -26,8 +27,10 @@ public class CoursePanel extends JPanel {
 		
 		assignmentPanels = new ArrayList<AssignmentPanel>();
 		
-		for (Assignment a: course.getSchedule().getAssignments()){
-			assignmentPanels.add(new AssignmentPanel(a));
+		for (Unit u: course.getCurriculum().getUnits()){
+			for (Assignment a: u.getAssignments()){
+				assignmentPanels.add(new AssignmentPanel(a));
+			}
 		}
 		
 		JPanel assignments = new JPanel();

@@ -1,9 +1,7 @@
-package assignment;
+package class2go.curriculum;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import class2go.curriculum.Question;
 
 public class Assignment {
 	

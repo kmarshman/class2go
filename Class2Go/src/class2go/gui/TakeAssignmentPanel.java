@@ -1,5 +1,7 @@
 package class2go.gui;
 
+import grading.Report;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -10,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import assignment.Assignment;
+import class2go.curriculum.Assignment;
 
 public class TakeAssignmentPanel extends JPanel {
 
@@ -20,6 +22,7 @@ public class TakeAssignmentPanel extends JPanel {
 	private JLabel title;
 	private JPanel questions;
 	private ArrayList<QuestionPanel> questionPanels;
+	private Report report;
 	
 	public TakeAssignmentPanel(){		
 		setLayout(new BorderLayout());
@@ -37,6 +40,10 @@ public class TakeAssignmentPanel extends JPanel {
 
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
+		
+		StudentHomepage studentHome = (StudentHomepage) this.getParent().getParent().getParent();
+		setReport(new Report(assignment, studentHome.getStudent().getId()));
+		
 		this.removeAll();
 		add(title, BorderLayout.NORTH);
 		title.setText(assignment.getTitle());
@@ -45,7 +52,7 @@ public class TakeAssignmentPanel extends JPanel {
 		questionPanels = new ArrayList<QuestionPanel>();
 		for (int i = 0; i < assignment.getQuestions().size(); i++){
 			boolean last = (i == assignment.getQuestions().size() - 1);
-			questions.add(new QuestionPanel(assignment.getQuestions().get(i), last));
+			questions.add(new QuestionPanel(assignment.getQuestions().get(i), last, report));
 		}	
 		int number = 1;
 		for(QuestionPanel panel: questionPanels){
@@ -54,6 +61,14 @@ public class TakeAssignmentPanel extends JPanel {
 		}
 		
 		add(questions, BorderLayout.CENTER);
+	}
+
+	public Report getReport() {
+		return report;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
 	}
 
 }

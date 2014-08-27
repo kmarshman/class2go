@@ -7,6 +7,7 @@ public class ShortAnswerQuestion extends Question {
 		setInstructions("");
 		setAnswer("");
 		setWeight(0);
+		setType("Short Answer");
 	}
 	
 	public ShortAnswerQuestion(String prompt, String instructions, String answer, double weight){
@@ -14,6 +15,7 @@ public class ShortAnswerQuestion extends Question {
 		setInstructions(instructions);
 		setAnswer(answer);
 		setWeight(weight);
+		setType("Short Answer");
 	}
 
 }

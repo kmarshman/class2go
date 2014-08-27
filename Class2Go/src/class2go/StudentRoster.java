@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class StudentRoster{
 	
-	private ArrayList<User> students = new ArrayList<User>();
+	private ArrayList<User> students;
 
 	public StudentRoster(){
-		
+		students = new ArrayList<User>();
 	}
 	
 	public void addStudent(User s){

@@ -15,7 +15,7 @@ public class StudentHomepage extends JPanel {
 	private static final long serialVersionUID = 5383757619897977563L;
 	private User student;
 	private JTabbedPane courseTabs;
-	private ArrayList<CoursePanel> courses;
+	private ArrayList<JPanel> courses;
 
 	/**
 	 * Create the panel.
@@ -27,14 +27,14 @@ public class StudentHomepage extends JPanel {
 		courseTabs.setMinimumSize(new Dimension(900, 600));
 		add(courseTabs);
 	}
-
+	
 	public User getStudent() {
 		return student;
 	}
 
 	public void setStudent(User student) {
 		this.student = student;
-		courses = new ArrayList<CoursePanel>();
+		courses = new ArrayList<JPanel>();
 		int index = 0;
 		for (Course c: student.getCourses()){
 			courses.add(new CoursePanel(c));
