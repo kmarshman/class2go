@@ -3,17 +3,16 @@ package class2go.gui;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import class2go.Course;
-import class2go.Student;
 import class2go.User;
-import class2go.curriculum.Curriculum;
-import class2go.curriculum.Unit;
 
-public class InstructorHomepage extends JPanel {
+public class InstructorHomepage extends JPanel implements Observer{
 
 	private static final long serialVersionUID = 1L;
 	private User instructor;
@@ -36,35 +35,9 @@ public class InstructorHomepage extends JPanel {
 
 	public void setInstructor(User instructor) {
 		this.instructor = instructor;
+		this.instructor.addObserver(this);
 		
-		///////////////////////////////////////
-		instructor.getCourses().get(0).addStudent(new User("Bob", "Marley", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Barbara", "Smith", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Margaret", "Jones", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Hailey", "Anderson", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Bob", "Marley", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Barbara", "Smith", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Margaret", "Jones", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Hailey", "Anderson", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Bob", "Marley", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Barbara", "Smith", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Margaret", "Jones", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Hailey", "Anderson", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Bob", "Marley", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Barbara", "Smith", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Margaret", "Jones", new Student()));
-		instructor.getCourses().get(0).addStudent(new User("Hailey", "Anderson", new Student()));
-		
-		ArrayList<Unit> units = new ArrayList<Unit>();
-		units.add(new Unit("Real Numbers", 1));
-		units.add(new Unit("Solving Equations", 2));	
-		units.add(new Unit("Polynomials", 3));
-		units.add(new Unit("Quadratics", 4));
-		units.add(new Unit("Complex Fractions", 5));
-		Curriculum curriculum = new Curriculum("Algebra", units);
-		
-		instructor.getCourses().get(0).setCurriculum(curriculum);
-		///////////////////////////////////////
+		courseTabs.removeAll();
 		
 		courses = new ArrayList<InstructorCoursePanel>();
 		int index = 0;
@@ -73,6 +46,12 @@ public class InstructorHomepage extends JPanel {
 			courseTabs.add(c.getTitle(), courses.get(index));
 			index++;
 		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		System.out.println("Instructor Update");
+		setInstructor((User)arg0);
 	}
 
 }

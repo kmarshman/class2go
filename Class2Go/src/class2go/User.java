@@ -1,10 +1,9 @@
 package class2go;
 
-import grading.Report;
-
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class User {
+public class User extends Observable{
 	
 	private String firstName;
 	private String lastName;
@@ -27,20 +26,21 @@ public class User {
 	}
 
 	public void addCourse(Course course){
-		courses.add(course);
+		role.addCourse(course, this);
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public void removeCourse(Course course){
-		courses.remove(course);
+		role.removeCourse(course, this);
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public void removeCourse(String title){
-		for (Course c: courses)
-			if (c.getTitle().equals(title)) courses.remove(c);
-	}
-
-	public Report getGrades(int courseID){
-		return role.getGrades(this, courseID);
+		role.removeCourse(title, this);
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public String getFirstName() {
@@ -49,6 +49,8 @@ public class User {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public String getLastName() {
@@ -57,6 +59,8 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public int getId() {
@@ -65,6 +69,8 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public ArrayList<Course> getCourses() {
@@ -73,6 +79,8 @@ public class User {
 
 	public void setCourses(ArrayList<Course> courses) {
 		this.courses = courses;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public UserRole getRole() {
@@ -81,5 +89,7 @@ public class User {
 
 	public void setRole(UserRole role) {
 		this.role = role;
+		setChanged();
+		notifyObservers(this);
 	}
 }

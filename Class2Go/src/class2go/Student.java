@@ -1,16 +1,17 @@
 package class2go;
 
-import grading.Report;
-
 public class Student extends UserRole{
 	
 	public Student(){
 		setRoleTitle("Student");
 	}
-
-	@Override
-	public Report getGrades(User user, int courseID) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void addCourse(Course course, User user){
+	}
+	
+	public void removeCourse(Course course, User user){
+	}
+	
+	public void removeCourse(String title, User user){
 	}
 }

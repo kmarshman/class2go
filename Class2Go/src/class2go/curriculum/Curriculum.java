@@ -1,8 +1,9 @@
 package class2go.curriculum;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Curriculum {
+public class Curriculum extends Observable{
 
 	private String title;
 	private ArrayList<Unit> units = new ArrayList<Unit>();
@@ -26,5 +27,26 @@ public class Curriculum {
 
 	public void setTitle(String title) {
 		this.title = title;
+		
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	public String toString(){
+		return title;
+	}
+	
+	public void addUnit(Unit u){
+		units.add(u);
+		
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	public void removeUnit(Unit u){
+		units.remove(u);
+		
+		setChanged();
+		notifyObservers(this);
 	}
 }

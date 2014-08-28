@@ -1,17 +1,21 @@
 package class2go;
 
-import grading.Report;
-
 public class Instructor extends UserRole{
 	
 	public Instructor(){
 		setRoleTitle("Instructor");
 	}
-
-	@Override
-	public Report getGrades(User user, int courseID) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void addCourse(Course course, User user){
+		user.getCourses().add(course);
 	}
-
+	
+	public void removeCourse(Course course, User user){
+		user.getCourses().remove(course);
+	}
+	
+	public void removeCourse(String title, User user){
+		for (Course c: user.getCourses())
+			if (c.getTitle().equals(title)) user.getCourses().remove(c);
+	}
 }

@@ -1,6 +1,6 @@
 package class2go;
 
-import grading.Report;
+import java.util.ArrayList;
 
 public class UserRole {
 	
@@ -10,15 +10,24 @@ public class UserRole {
 		setRoleTitle("");
 	}
 	
-	public Report getGrades(User user, int courseID){
-		return null;		
-	}
 	public String getRoleTitle(){
 		return roleTitle;
 	}
 
 	public void setRoleTitle(String roleTitle) {
 		this.roleTitle = roleTitle;
+	}
+	
+	public void addCourse(Course course, User user){
+	}
+	
+	public void removeCourse(Course course, User user){
+	}
+	
+	public void removeCourse(String title, User user){
+	}
+
+	public void setCourses(ArrayList<Course> courses, User user) {
 	}
 
 }

@@ -1,7 +1,5 @@
 package class2go.gui;
 
-import grading.Report;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -26,22 +24,23 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import server_communication.HttpConnectionHandler;
 import server_communication.RequestBuilder;
+import class2go.curriculum.Assignment;
 import class2go.curriculum.Question;
 
 public class QuestionPanel extends JPanel {
 
 	private static final long serialVersionUID = -7258390655415574243L;
 	
+	private Assignment assignment;
 	private Question question;
-	private Report report;
 	private JTextField shortAnswer;
 	private ButtonGroup selectionGroup;
 	private boolean lastCard;
 	private JButton submit;
 	
-	public QuestionPanel(Question question, boolean lastCard, Report report){
+	public QuestionPanel(Question question, boolean lastCard, Assignment assignment){
 		
-		this.report = report;
+		this.assignment = assignment;
 		this.setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(975, 600));
 		setMinimumSize(new Dimension(900, 580));
@@ -144,9 +143,9 @@ public class QuestionPanel extends JPanel {
 	}
 	
 	private void gradeQuestion(){
-		if (shortAnswer != null) report.addAnswer(shortAnswer.getText());
-		else if (selectionGroup != null) report.addAnswer(selectionGroup.getSelection().getActionCommand());
-		else report.addAnswer("none entered");
+		if (shortAnswer != null) question.setAnswer(shortAnswer.getText());
+		else if (selectionGroup != null) question.setAnswer(selectionGroup.getSelection().getActionCommand());
+		else question.setAnswer("none entered");
 		if(!lastCard){
 			CardLayout cards = (CardLayout) this.getParent().getLayout();
 			cards.next(this.getParent());
@@ -167,15 +166,17 @@ public class QuestionPanel extends JPanel {
 	}
 	
 	private void sendReport(){
-		String[] variables = {"requestType", "report"};
+		String[] variables = {"requestType", "assignment", "studentID"};
+		StudentHomepage home = (StudentHomepage) this.getParent().getParent().getParent().getParent().getParent();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			String json =  mapper.writeValueAsString(report);
-			System.out.println(json);
-			String[] values = {"report", json};
+			String json =  mapper.writeValueAsString(assignment);
+			String[] values = {"assignment", json, String.valueOf(home.getStudent().getId())};
 			String post = RequestBuilder.buildPost(variables, values);
 			HttpConnectionHandler postSender = new HttpConnectionHandler();
-			postSender.sendPost(post, "Report");
+			Assignment gradedAssignment = (Assignment) postSender.sendPost(post, "Report");
+			assignment.setGrade(gradedAssignment.getGrade());
+			System.out.println(gradedAssignment.getGrade());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

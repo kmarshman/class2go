@@ -67,5 +67,9 @@ public class Question {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public String toString(){
+		return "Question: " + prompt;
+	}
 
 }

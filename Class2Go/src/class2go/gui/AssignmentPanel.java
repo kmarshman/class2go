@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
 
 import class2go.curriculum.Assignment;
 
-public class AssignmentPanel extends JPanel {
+public class AssignmentPanel extends JPanel implements Observer{
 
 	private static final long serialVersionUID = 1L;
 	private Assignment assignment;
@@ -24,11 +26,17 @@ public class AssignmentPanel extends JPanel {
 	
 	public AssignmentPanel(Assignment assignment){
 		this.setAssignment(assignment);
+		this.assignment.addObserver(this);
 		this.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.setLayout(new FlowLayout(FlowLayout.LEADING));
 		this.setMaximumSize(new Dimension(1000, 40));
 		this.setPreferredSize(new Dimension(1000, 40));
 		this.setMinimumSize(new Dimension(1000, 40));
+		
+		fill();
+	}
+	
+	private void fill(){
 		
 		SimpleDateFormat date_format = new SimpleDateFormat("EEE, MMM d");
 		dueDate = new JLabel(date_format.format((assignment.getDueDate().getTime())));
@@ -38,8 +46,9 @@ public class AssignmentPanel extends JPanel {
 		dueDate.setMinimumSize(new Dimension(100, 40));
 		add(dueDate);
 		
-		
-		JLabel score = new JLabel("- / " + assignment.calculateTotalPoints());
+		Double grade = assignment.getGrade();
+		if (grade == null) grade = 0.0;
+		JLabel score = new JLabel(grade + " / " + assignment.calculateTotalPoints());
 		score.setFont(new Font("Arial", Font.PLAIN, 15));
 		score.setMaximumSize(new Dimension(100, 40));
 		score.setPreferredSize(new Dimension(100, 40));
@@ -65,6 +74,7 @@ public class AssignmentPanel extends JPanel {
 				takeAssignment();
 			}
 		});
+		if (assignment.getGrade() != null) complete.setEnabled(false);
 		add(complete);
 	}
 	
@@ -81,6 +91,14 @@ public class AssignmentPanel extends JPanel {
 
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("Update Assignment");
+		this.assignment = (Assignment) o;
+		removeAll();
+		fill();		
 	}
 
 }
