@@ -46,6 +46,7 @@ public class InstructorHomepage extends JPanel implements Observer{
 			courseTabs.add(c.getTitle(), courses.get(index));
 			index++;
 		}
+		courseTabs.add("New Course...", new NewCourseTab(instructor));
 	}
 
 	@Override

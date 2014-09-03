@@ -1,7 +1,10 @@
 package class2go;
 
+import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import class2go.gui.Class2Go;
 
 public class User extends Observable{
 	
@@ -91,5 +94,10 @@ public class User extends Observable{
 		this.role = role;
 		setChanged();
 		notifyObservers(this);
+	}
+	
+	public void getInterface(Class2Go app, CardLayout layout){
+		System.out.println("User get interface");
+		role.getInterface(app, layout, this);
 	}
 }

@@ -1,6 +1,9 @@
 package class2go;
 
+import java.awt.CardLayout;
 import java.util.ArrayList;
+
+import class2go.gui.Class2Go;
 
 public class UserRole {
 	
@@ -28,6 +31,18 @@ public class UserRole {
 	}
 
 	public void setCourses(ArrayList<Course> courses, User user) {
+	}
+	
+	public void getInterface(Class2Go app, CardLayout layout, User user){
+		if (roleTitle.equals("Student")){
+			app.setStudent(user);
+			layout.next(app.getContentPane());
+		} else {
+			System.out.println("Instructor");
+			app.setInstructor(user);
+			layout.next(app.getContentPane());
+			layout.next(app.getContentPane());
+		}
 	}
 
 }

@@ -554,6 +554,7 @@ public class CourseDashboard extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		System.out.println("update");
 		removeAll();
 		fill();
 	}

@@ -144,6 +144,8 @@ public class Login extends JPanel {
 				HttpConnectionHandler postSender = new HttpConnectionHandler();
 				User result = (User) postSender.sendPost(post, "Login");
 				CardLayout layout = (CardLayout) app.getContentPane().getLayout();
+				result.getInterface(app, layout);
+				/*
 				if (result.getRole().getRoleTitle().equals("Student")){
 					app.setStudent(result);
 					layout.next(app.getContentPane());
@@ -154,7 +156,8 @@ public class Login extends JPanel {
 					layout.next(app.getContentPane());
 				} else {
 					JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(Login.this), "Username and Password combination inccorect", "Login error", JOptionPane.ERROR_MESSAGE);
-				}		
+				}
+				*/
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
